@@ -1,0 +1,12 @@
+# gitignore whitelist
+
+# disallow all rootfiles
+
+
+# except exclusions
+!README.md
+!.gitignore
+!traffic-lights
+!traffic-lights-example
+!vanilla-react
+!virtual-race 

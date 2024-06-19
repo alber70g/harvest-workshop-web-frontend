@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HTML for traffic light</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <ol id="trafficlight" class="trafficlight">
+        <li class="light red active" />
+        <li class="light yellow" />
+        <li class="light green" />
+      </ol>
+
+      <button id="toggleButton" class="button">toggle</button>
+    </div>
+    <script>
+      const button = document.querySelector('#toggleButton');
+      const trafficlight = document.querySelector('#trafficlight');
+      const lights = trafficlight.querySelectorAll('li');
+      let activeLight = 0;
+      let isActive = true;
+      let lightInterval;
+
+      const toggleLights = () => {
+        isActive = !isActive;
+        if (!isActive) {
+          stopLights();
+        } else {
+          startLights();
+        }
+      };
+
+      button.addEventListener('click', toggleLights);
+
+      const changeLight = () => {
+        lights.forEach((light, idx) => {
+          light.classList.remove('active');
+
+          if (idx === activeLight) {
+            light.classList.add('active');
+          }
+        });
+
+        activeLight === 0 ? (activeLight = lights.length - 1) : (activeLight = activeLight - 1);
+      };
+
+      const stopLights = () => {
+        clearInterval(lightInterval);
+        lights.forEach((light, idx) => {
+          light.classList.remove('active');
+        });
+        lights[1].classList.add('blink');
+      };
+      const startLights = () => {
+        activeLight = 0;
+        changeLight();
+        lights[1].classList.remove('blink');
+        lightInterval = setInterval(changeLight, 2000);
+      };
+      startLights();
+    </script>
+  </body>
+</html>

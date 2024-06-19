@@ -1,0 +1,17 @@
+{
+  "name": "TrafficLight",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "light-server -s ./src -p 4000 -w \"src/*.js, src/*.html, src/*.css\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "devDependencies": {
+    "light-server": "^2.9.1"
+  }
+}
