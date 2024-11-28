@@ -9,7 +9,11 @@ export default function (
   res: NextApiResponse<ApiResponse>
 ) {
   const startPositionData = '2023-08-27T13:03:39.004000+00:00';
-  raceTimerInstance.start(new Date(startPositionData));
+  try {
+    raceTimerInstance.start(new Date(startPositionData));
+  } catch (e) {
+    console.log('RaceTimer already started, stop first. Continuing');
+  }
   res.status(200).json({
     status: 'started',
     time: raceTimerInstance.now(),

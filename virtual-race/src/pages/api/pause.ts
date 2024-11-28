@@ -8,7 +8,13 @@ export default function (
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse>
 ) {
-  raceTimerInstance.pause();
+  try {
+    raceTimerInstance.pause();
+  } catch (error) {
+    res.status(200).json({
+      status: 'stopped',
+    });
+  }
   res.status(200).json({
     status: 'paused',
     time: raceTimerInstance.now(),

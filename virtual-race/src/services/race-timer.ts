@@ -52,9 +52,11 @@ export class RaceTimer {
 
   public start(startDate: Date): void {
     if (this.isStarted()) {
+      return;
       throw new Error('RaceTimer already started, stop first');
     }
     if (this.isPaused()) {
+      return;
       throw new Error('RaceTimer is paused, resume or stop first');
     }
     this.realTimeStartTime = new Date();
@@ -65,9 +67,11 @@ export class RaceTimer {
     if (!this.isStarted()) {
       throw new Error('RaceTimer is not started');
     }
+
     if (this.isPaused()) {
-      throw new Error('RaceTimer already paused');
+      return;
     }
+
     if (this.startDate && this.realTimeStartTime) {
       this.pauses.push([new Date(), undefined]);
     }
@@ -75,9 +79,13 @@ export class RaceTimer {
 
   public resume(): void {
     if (!this.isStarted()) {
+      const startPositionData = '2023-08-27T13:03:39.004000+00:00';
+      this.start(new Date(startPositionData));
+      return;
       throw new Error('RaceTimer is not started');
     }
     if (!this.isPaused()) {
+      return;
       throw new Error('RaceTimer is not paused');
     }
     if (this.startDate && this.realTimeStartTime) {
@@ -87,6 +95,7 @@ export class RaceTimer {
 
   public stop(): void {
     if (!this.isStarted()) {
+      return;
       throw new Error('RaceTimer is not started');
     }
     this.pauses = [];
