@@ -6,7 +6,7 @@ import { ApiResponse } from './ApiResponse';
 
 export default function (
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse>
+  res: NextApiResponse<{ status: 'started'; time: number }>
 ) {
   raceTimerInstance.resume();
   res.status(200).json({
