@@ -4,7 +4,7 @@ import { CarData, carDataService } from '@/services/data-service';
 import { raceTimerInstance } from '@/services/race-timer';
 import { ApiResponse } from './ApiResponse';
 
-export default function(
+export default function (
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse>
 ) {
@@ -15,9 +15,16 @@ export default function(
     return;
   }
 
-  res.status(200).json({
+  const responseData = {
     status: raceTimerInstance.status,
     time: raceTimerInstance.now(),
     data: carDataService.getCurrentData(raceTimerInstance.now()),
-  });
+  };
+
+  if (responseData.data.length !== 0) {
+    res.status(200).json(responseData);
+  } else {
+    raceTimerInstance.stop();
+    res.status(200).json({ ...responseData, status: 'stopped' });
+  }
 }
