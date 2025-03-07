@@ -35,7 +35,6 @@ const ExampleApiComponent: React.FC = () => {
       {response?.status === 'started' && (
         <div>
           <div>Started</div>
-          <div>Date {response.data[0].car.date}</div>
           <Timer time={new Date(response.time)} />
         </div>
       )}
